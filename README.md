@@ -6,7 +6,7 @@ Smart contract for Cryptaur crowdsale platform
 
 https://cryptaur.com/
 
-Smart contract is a part of [Cryptaur crowdsale platform](https://github.com/Cryptaur/cryptaur-crowdsale-platform)
+Cryptaur smart contract is a part of [Cryptaur crowdsale platform](https://github.com/Cryptaur/cryptaur-crowdsale-platform)
 
 ---
 
