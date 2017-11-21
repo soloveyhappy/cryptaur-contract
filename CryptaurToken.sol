@@ -65,7 +65,12 @@ contract CryptaurToken is owned {
         _;
     }
 
-    function CryptaurToken(address _cryptaurBackend) payable owned() {
+    modifier enabled {
+        require(crowdsaleFinished == true);
+        _;
+    }
+
+    function CryptaurToken(address _cryptaurBackend) public payable owned() {
         cryptaurBackend = _cryptaurBackend;
     }
 
@@ -87,7 +92,7 @@ contract CryptaurToken is owned {
     }
 
     function transfer(address _to, uint256 _value)
-        public onlyPayloadSize(2 * 32) {
+        public enabled onlyPayloadSize(2 * 32) {
         require(balanceOf[msg.sender] >= _value);
         require(balanceOf[_to] + _value >= balanceOf[_to]);
         balanceOf[msg.sender] -= _value;
@@ -96,7 +101,7 @@ contract CryptaurToken is owned {
     }
     
     function transferFrom(address _from, address _to, uint _value)
-        public onlyPayloadSize(3 * 32) {
+        public enabled onlyPayloadSize(3 * 32) {
         require(balanceOf[_from] >= _value);
         require(balanceOf[_to] + _value >= balanceOf[_to]); // overflow
         require(allowed[_from][msg.sender] >= _value);
@@ -106,7 +111,7 @@ contract CryptaurToken is owned {
         Transfer(_from, _to, _value);
     }
 
-    function approve(address _spender, uint _value) public {
+    function approve(address _spender, uint _value) public enabled {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
     }
